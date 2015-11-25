@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  title: SoR
+  description: Social Recomander
+  version: 1.0.0
+host: api.uber.com
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /person:
+    get:
+      summary: Person information
+      description: |
+        The Person endpoint returns information about the curent login Person
+        given an user id. The response includes the display name
+        and other details about each person.
+      parameters:
+        - name: person_id
+          in: query
+          description: The id of the login person.
+          required: true
+          type: String
+          format: width(100)
+        
+      tags:
+        - Person
+      responses:
+        '200':
+          description: All the information off the person
+          schema:
+            type: Person
+            items:
+              $ref: '#/definitions/Person'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
