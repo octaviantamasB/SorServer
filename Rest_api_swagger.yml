@@ -10,31 +10,580 @@ basePath: /v1
 produces:
   - application/json
 paths:
-  /person:
+  /user/login:
     get:
-      summary: Person information
+      summary: Login
+      description: The login endpoint returns if the user has been authorized with the application.
+      tags:
+        - Login
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          type: string
+          description: The name of the person.
+        - name: user_password
+          in: query
+          required: true
+          type: string
+          description: The person password is already in coded format.
+      responses:
+        '200':
+          description: The response to the Login in the aplication
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/register:
+    post:
+      summary: Register an user to the application
+      description: "The register endpoint returns if succesfull the page of the user in edit mode"
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          type: string
+          description: The name of the person.
+        - name: user_mail
+          in: query
+          required: true
+          type: string
+          description: The mail of the person.
+        - name: user_password
+          in: query
+          required: true
+          type: string
+          description: The person password is already in coded format.
+        - name: user_type
+          in: query
+          required: true
+          type: string
+          description: 1 if it is person and 2 if it is organization.
+      tags:
+        - Register
+      responses:
+        '200':
+          description: The response to the register. 
+          schema:
+            $ref: '#/definitions/RegisterResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/viewOrganization:
+    get:
+      summary: Organization information
       description: |
-        The Person endpoint returns information about the curent login Person
-        given an user id. The response includes the display name
+        The view endpoint returns information about the curent login User
+        given an user id and the user type. The response includes the display name
         and other details about each person.
       parameters:
-        - name: person_id
+        - name: user_id
           in: query
           description: The id of the login person.
           required: true
-          type: String
+          type: string
           format: width(100)
-        
+        - name: user_type
+          in: query
+          description: 1 if it is person and 2 if it is organization.
+          required: true
+          type: string
+          format: width(100)
       tags:
-        - Person
+        - User adminstration
+        - View
+        - Organization        
+      responses:
+        '200':
+          description: All the information off the organization
+          schema:
+            $ref: '#/definitions/Organization'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/viewPerson:
+    get:
+      summary: Person information
+      description: |
+        The view endpoint returns information about the curent login Person
+        given an user id and the user type. The response includes the display name
+        and other details about each person.
+      parameters:
+        - name: user_id
+          in: query
+          description: The id of the login person.
+          required: true
+          type: string
+          format: width(100)
+        - name: user_type
+          in: query
+          description: 1 if it is person and 2 if it is organization.
+          required: true
+          type: string
+          format: width(100)
+      tags:
+        - User adminstration
+        - View
+        - Person       
       responses:
         '200':
           description: All the information off the person
           schema:
-            type: Person
+            $ref: '#/definitions/Person'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/editPerson:
+    put:
+      summary: Update Person information
+      description: |
+        The editPerson endpoint updates the person.
+      parameters:
+        - name: person
+          in: body
+          description: person with changed data
+          schema:
+            $ref: '#/definitions/Person'
+      
+      tags:
+        - User adminstration
+        - Edit
+        - Person
+        
+      responses:
+        '200':
+          description: if the person was updated
+          schema:
+            $ref: '#/definitions/UpdatedResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /user/editOrganization:
+    put:
+      summary: Update Organization information
+      description: |
+        The editOrganization endpoint updates the organization.
+      parameters:
+        - name: orgasnization
+          in: body
+          description: Organization with changed data
+          schema:
+            $ref: '#/definitions/Organization'
+      tags:
+        - User adminstration
+        - Edit
+        - Organization        
+      responses:
+        '200':
+          description: if the person was updated
+          schema:
+            $ref: '#/definitions/UpdatedResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /search/suggestPerson:
+    get:
+      summary: Suggest friends/employees using and id and the type of user
+      description: >
+        This search sugests persons(friends or employees) using a a recomandation algorithm and the foaf
+      parameters:
+        - name: user_id
+          in: query
+          description: User id.
+          required: true
+          type: string
+        - name: user_type
+          in: query
+          description: 1 if it is person and 2 if it is organization.
+          required: true
+          type: string
+      tags:
+        - Suggest 
+        - Person
+      responses:
+        '200':
+          description: An array of Persons recomanded
+          schema:
+            type: array
             items:
               $ref: '#/definitions/Person'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /search/suggestOrganizations:
+    get:
+      summary: Suggest organizations using and id
+      description: >
+        This search sugests persons and organizations using a a recomandation algorithm and the foaf
+      parameters:
+        - name: user_id
+          in: query
+          description: User id.
+          required: true
+          type: string
+        - name: user_type
+          in: query
+          description: 1 if it is person and 2 if it is organization.
+          required: true
+          type: string
+      tags:
+        - Suggest
+        - Organization
+      responses:
+        '200':
+          description: An array of organizations recomanded
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Organization'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /search/searchPerson:
+    get:
+      summary: Advance Search Person
+      description: |
+        The advance_search endpoint returns an array of persons that have some link between them
+        given some information about the person.  For example, suggesting the members of an IT team based on desired skills (excellent knowledge of Web technologies + software engineering + open hardware), geolocation (i.e. from Romania and UK only), preferences, hobbies (i.e. horror movies + classical music), aversions (e.g., communication by phone, football, politics) and so on. The response contains an array of Persons. At least one of the parameters will be used(the parameters are all the parameters of a person)
+      parameters:
+        - name: RequestedInfo
+          in: body
+          schema:        
+            type: array
+            items:
+              $ref: '#/definitions/RequestedInfo'
+          description: 'What is important for him'
+      
+      tags:
+        - Advance Search 
+        - Person
+      responses:
+        '200':
+          description: An array of persons
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Person'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /search/searchOrganization:
+    get:
+      summary: Advance Search Organization
+      description: |
+        The advance_search endpoint returns an array of organizations that have some link between them
+        given some information about the organization.  For example, suggesting the members of an IT team based on desired skills (excellent knowledge of Web technologies + software engineering + open hardware), geolocation (i.e. from Romania and UK only), preferences, hobbies (i.e. horror movies + classical music), aversions (e.g., communication by phone, football, politics) and so on. The response contains an array of Persons. At least one of the parameters will be used(the parameters are all the parameters of a organization)
+      parameters:
+        
+        - name: RequestedInfo
+          in: body
+          schema:        
+            type: array
+            items:
+              $ref: '#/definitions/RequestedInfo'
+          description: 'What is important for it.'
+        
+      tags:
+        - Advance Search
+        - Organization
+      responses:
+        '200':
+          description: An array of persons
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Organization'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /messages/get:
+    get:
+      summary: Get the message with the id
+      description: >
+        This gets the message for the current user
+      parameters:
+        - name: user_id
+          in: query
+          description: User id.
+          required: true
+          type: string
+        - name: message_id
+          in: query
+          description: the message you clicked to see.
+          required: true
+          type: string
+      tags:
+        - Message 
+      responses:
+        '200':
+          description: An message
+          schema:
+            items:
+              $ref: '#/definitions/Message'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /messages/send:
+    post:
+      summary: Send the message 
+      description: >
+        This send the message for the current user
+      parameters:
+        - name: user_id
+          in: query
+          description: User id.
+          required: true
+          type: string
+        - name: user_dest_name
+          in: query
+          description: who you send it.
+          required: true
+          type: string
+        - name: message
+          in: query
+          description: the message boddy.
+          required: true
+          type: string
+      tags:
+        - Message 
+      responses:
+        '200':
+          description: An message
+          schema:
+              $ref: '#/definitions/MessageResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  MessageResponse:
+    type: boolean
+    description: If the message was succesfully sent
+  Message:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      dest_id:
+        type: string
+        description: id destination of the message
+      message:
+        type: string
+        description: message body
+      message_date:
+        type: string
+        description: message sent date
+      message_read:
+        type: boolean
+        description: if the message was read or not
+  UpdatedResponse:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      user_type:
+        type: string
+        description: type of the user
+      logedin:
+        type: boolean
+        description: If the user update was a succes
+  LoginResponse:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      user_type:
+        type: string
+        description: type of the user
+      logedin:
+        type: boolean
+        description: If the user authentification was a succes
+  RegisterResponse:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      user_type:
+        type: string
+        description: type of the user
+      logedin:
+        type: boolean
+        description: If the user authentification was a succes
+  Hobby:
+    type: object
+    properties:
+      hobby_id:
+        type: string
+        description: 'Unique identifier.'
+      hobby_name:
+        type: string
+        description: the name of the hobby
+  Job:
+    type: object
+    properties:
+      job_id:
+        type: string
+        description: 'Unique identifier.'
+      Job_name:
+        type: string
+        description: the name of the job
+      job_knowledge:
+        type: string
+        description: 1 for beginer, 2 for advance, 3 for expert
+      job_salary:
+        type: string
+        description: min-max salary wanted(can be empty)
+  Knowledge:
+    type: object
+    properties:
+      Knowledge_id:
+        type: string
+        description: 'Unique identifier.'
+      Knowledge_name:
+        type: string
+        description: the name of the Knowledge
+      job_id:
+        type: string
+        description: 'for what jobs is this knowldege asked(can be empty)'
+      experience:
+        type: string
+        description: 1 for beginer, 2 for advance, 3 for expert   
+  Worked:
+    type: object
+    properties:
+      worked_id:
+        type: string
+        description: 'Unique identifier.'
+      organization_id:
+        type: string
+        description: the name of the Knowledge
+      begin_date:
+        type: string
+        format: date
+        description: the stating date of the job  
+      end_date:
+        type: string
+        format: date
+        description: the end date of the job , if still working there it's empty 
+  Person:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      user_name:
+        type: string
+        description: user name.
+      user_mail:
+        type: string
+        description: user email.
+      user_address:
+        type: string
+        description: user addres.
+      hobbies:
+        type: array
+        items:
+              $ref: '#/definitions/Hobby'
+        description: 'Hobies of the person.'
+      worked:
+        type: array
+        items:
+              $ref: '#/definitions/Worked'
+        description: 'Jobs of the person.'
+      knowledge:
+        type: array
+        items:
+              $ref: '#/definitions/Knowledge'
+        description: 'What he knows of the person.'
+      jobessearched:
+        type: array
+        items:
+              $ref: '#/definitions/Job'
+        description: 'Jobs of the person.'
+      friends:
+        type: array
+        items:
+              $ref: '#/definitions/Person'
+        description: 'Friends of the person.'
+  RequestedInfo:
+    type: object
+    properties:
+      user_name: 
+        description: The person that you search name(ex:all the persons that have the name Ion or simmilar).
+        type: string
+      localization: 
+        description: Should the localization be only from a certain place
+        type: string
+      knowledge:
+        type: array
+        items:
+          $ref: '#/definitions/Knowledge'
+        description: 'What he should know'
+      jobSearched:
+        type: array
+        items:
+          $ref: '#/definitions/Job'
+        description: 'What jobs he should be good for'
+      hobbies:
+        type: array
+        items:
+          $ref: '#/definitions/Hobby'
+        description: 'What hobby he should have'
+  Organization:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: 'Unique identifier.'
+      user_name:
+        type: string
+        description: user name.
+      user_mail:
+        type: string
+        description: user email.
+      user_address:
+        type: string
+        description: user addres.
+      knowledge:
+        type: array
+        items:
+              $ref: '#/definitions/Knowledge'
+        description: 'What the person should know, may be linked to a certain job.'
+      jobessearched:
+        type: array
+        items:
+              $ref: '#/definitions/Job'
+        description: 'Jobs that you want to hire.'
+      employes:
+        type: array
+        items:
+              $ref: '#/definitions/Person'
+        description: 'Employes of the organization.'
+    
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
