@@ -41,6 +41,7 @@ public class UserController {
 
 	// uita-te
 	// http://examples.javacodegeeks.com/enterprise-java/rest/jersey/json-example-with-jersey-jackson/
+	//https://www.nabisoft.com/tutorials/java-ee/producing-and-consuming-json-or-xml-in-java-rest-services-with-jersey-and-jackson
 	@PUT
 	@Path("/editPerson")
 	@Produces(MediaType.TEXT_PLAIN)
