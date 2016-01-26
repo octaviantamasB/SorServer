@@ -5,5 +5,6 @@ public class Constants {
 	private Constants(){};
 	public static final String Person="person";
 	public static final String Organization="organization";
+	public static final String Faill = "false";
 
 }

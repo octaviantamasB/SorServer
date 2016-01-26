@@ -4,9 +4,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import com.Sor.Model.*;
 import com.Sor.Utils.Constants;
+import com.Sor.Utils.DatabaseCalls;
 
 @Path("/user")
 public class UserController {
+	DatabaseCalls dc=new DatabaseCalls();
+	
 	// http://localhost:8080/SorServer/rest/user/login?userName=Examples&userPassword=09709
 	@GET
 	@Path("/login")
@@ -17,9 +20,7 @@ public class UserController {
 		// return
 		// viewPerson.getUserLogin(userName,userPassword,securityContext);
 		LoginResponse response = new LoginResponse();
-		response.setLogedin(true);
-		response.setUserId(userName);
-		response.setUserType(Constants.Person);
+		response=dc.verifyLogin(userName,userPassword);		
 		return response;
 	}
 
@@ -34,9 +35,7 @@ public class UserController {
 		// return
 		// delegate.userRegisterPost(userName,userMail,userPassword,userType,securityContext);
 		RegisterResponse response = new RegisterResponse();
-		response.setLogedin(true);
-		response.setUserId(userName);
-		response.setUserType(Constants.Person);
+		response=dc.registerUser(userName,userMail,userPassword,userType);	
 		return response;
 	}
 
