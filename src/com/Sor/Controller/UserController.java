@@ -39,7 +39,9 @@ public class UserController {
 		response.setUserType(Constants.Person);
 		return response;
 	}
-//uita-te http://examples.javacodegeeks.com/enterprise-java/rest/jersey/json-example-with-jersey-jackson/
+
+	// uita-te
+	// http://examples.javacodegeeks.com/enterprise-java/rest/jersey/json-example-with-jersey-jackson/
 	@PUT
 	@Path("/editPerson")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -47,6 +49,39 @@ public class UserController {
 	public String putEditPerson(Person person, @Context SecurityContext securityContext) throws NotFoundException {
 		return Constants.Succes;
 		// return delegate.userEditPersonPut(person,securityContext);
+	}
+
+	@GET
+	@Path("/viewPerson")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Person getViewPerson(@QueryParam("userId") String userId, @Context SecurityContext securityContext)
+			throws NotFoundException {
+		Person response = new Person();
+		return response;
+		// return delegate.userViewPersonGet(userId,userType,securityContext);
+	}
+
+	// uita-te
+	// http://examples.javacodegeeks.com/enterprise-java/rest/jersey/json-example-with-jersey-jackson/
+	@PUT
+	@Path("/editOrganization")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String putEditOrganization(Organization organization, @Context SecurityContext securityContext)
+			throws NotFoundException {
+		return Constants.Succes;
+		// return delegate.userEditOrganizationPut(person,securityContext);
+	}
+
+	@GET
+	@Path("/viewOrganization")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Organization getViewOrganization(@QueryParam("userId") String userId,
+			@Context SecurityContext securityContext) throws NotFoundException {
+		Organization response = new Organization();
+		return response;
+		// return
+		// delegate.userViewOrganizationGet(userId,userType,securityContext);
 	}
 
 }
