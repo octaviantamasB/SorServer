@@ -55,7 +55,7 @@ public class DatabaseConector {
 	public ResultSet query(String query) throws SQLException {
 		statement = db.conn.createStatement();
 		ResultSet res = statement.executeQuery(query);
-		//statement.close();
+		// statement.close();
 		return res;
 	}
 
@@ -66,17 +66,19 @@ public class DatabaseConector {
 	 * @return boolean
 	 * @throws SQLException
 	 */
-	public String insert(String insertQuery,String columnIdName) throws SQLException {
+	public String insert(String insertQuery, String columnIdName) throws SQLException {
 		statement = db.conn.createStatement();
 		int result = statement.executeUpdate(insertQuery, Statement.RETURN_GENERATED_KEYS);
-		ResultSet rs = statement.getGeneratedKeys();
-		String response;
-		if (rs.next()){
-			response=rs.getString(columnIdName);
+		if (result != 0) {
+			ResultSet rs = statement.getGeneratedKeys();
+			String response = null;
+			if (rs.next()) {
+				response = rs.getString(columnIdName);
+
+			}
 			return response;
-		}
-		else return null;
-		
+		} else
+			return null;
 
 	}
 
