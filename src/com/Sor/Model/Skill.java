@@ -2,9 +2,9 @@ package com.Sor.Model;
 
 import java.util.Objects;
 
-public class Knowledge {
-	private String knowledgeId = null;
-	private String knowledgeName = null;
+public class Skill {
+	private String skillId = null;
+	private String skillName = null;
 	private String jobId = null;
 	private String experience = null;
 
@@ -12,28 +12,28 @@ public class Knowledge {
 	 * Unique identifier.
 	 **/
 
-	public String getKnowledgeId() {
-		return knowledgeId;
+	public String getSkillId() {
+		return skillId;
 	}
 
-	public void setKnowledgeId(String knowledgeId) {
-		this.knowledgeId = knowledgeId;
+	public void setSkillId(String skillId) {
+		this.skillId = skillId;
 	}
 
 	/**
-	 * the name of the Knowledge
+	 * the name of the skill
 	 **/
 
-	public String getKnowledgeName() {
-		return knowledgeName;
+	public String getSkillName() {
+		return skillName;
 	}
 
-	public void setKnowledgeName(String knowledgeName) {
-		this.knowledgeName = knowledgeName;
+	public void setSkillName(String skillName) {
+		this.skillName = skillName;
 	}
 
 	/**
-	 * for what jobs is this knowldege asked(can be empty)
+	 * for what jobs is this skill asked(can be empty)
 	 **/
 
 	public String getJobId() {
@@ -45,7 +45,7 @@ public class Knowledge {
 	}
 
 	/**
-	 * 1 for beginer, 2 for advance, 3 for expert
+	 * 1 for beginner, 2 for advance, 3 for expert
 	 **/
 
 	public String getExperience() {
@@ -64,15 +64,15 @@ public class Knowledge {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		Knowledge knowledge = (Knowledge) o;
-		return Objects.equals(knowledgeId, knowledge.knowledgeId)
-				&& Objects.equals(knowledgeName, knowledge.knowledgeName) && Objects.equals(jobId, knowledge.jobId)
+		Skill knowledge = (Skill) o;
+		return Objects.equals(skillId, knowledge.skillId)
+				&& Objects.equals(skillName, knowledge.skillName) && Objects.equals(jobId, knowledge.jobId)
 				&& Objects.equals(experience, knowledge.experience);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(knowledgeId, knowledgeName, jobId, experience);
+		return Objects.hash(skillId, skillName, jobId, experience);
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class Knowledge {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Knowledge {\n");
 
-		sb.append("    knowledgeId: ").append(toIndentedString(knowledgeId)).append("\n");
-		sb.append("    knowledgeName: ").append(toIndentedString(knowledgeName)).append("\n");
+		sb.append("    skillId: ").append(toIndentedString(skillId)).append("\n");
+		sb.append("    skillName: ").append(toIndentedString(skillName)).append("\n");
 		sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
 		sb.append("    experience: ").append(toIndentedString(experience)).append("\n");
 		sb.append("}");

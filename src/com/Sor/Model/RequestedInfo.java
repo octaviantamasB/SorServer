@@ -5,7 +5,7 @@ import java.util.*;
 public class RequestedInfo {
 	private String userName = null;
 	private String localization = null;
-	private List<Knowledge> knowledge = new ArrayList<Knowledge>();
+	private List<Skill> knowledge = new ArrayList<Skill>();
 	private List<Job> jobSearched = new ArrayList<Job>();
 	private List<Hobby> hobbies = new ArrayList<Hobby>();
 
@@ -38,11 +38,11 @@ public class RequestedInfo {
 	 * What he should know
 	 **/
 
-	public List<Knowledge> getKnowledge() {
+	public List<Skill> getKnowledge() {
 		return knowledge;
 	}
 
-	public void setKnowledge(List<Knowledge> knowledge) {
+	public void setKnowledge(List<Skill> knowledge) {
 		this.knowledge = knowledge;
 	}
 

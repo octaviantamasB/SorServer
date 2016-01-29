@@ -6,13 +6,16 @@ public class Person {
 
 	private String userId = null;
 	private String userName = null;
+	private String givenName = null;
+	private String familyName = null;
 	private String userMail = null;
 	private String userAddress = null;
 	private List<Hobby> hobbies = new ArrayList<Hobby>();
 	private List<Worked> worked = new ArrayList<Worked>();
-	private List<Knowledge> knowledge = new ArrayList<Knowledge>();
+	private List<Skill> knowledge = new ArrayList<Skill>();
 	private List<Job> jobesSearched = new ArrayList<Job>();
 	private List<Person> friends = new ArrayList<Person>();
+	private List<Studied> studied=new ArrayList<Studied>();
 
 	/**
 	 * Unique identifier.
@@ -34,6 +37,27 @@ public class Person {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	/**
+	 * user givenName.
+	 **/
+	public String getGivenName() {
+		return givenName;
+	}
+
+	public void setGivenName(String givenName) {
+		this.givenName = givenName;
+	}
+	/**
+	 * user familyName.
+	 **/
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
 	}
 
 	/**
@@ -82,16 +106,28 @@ public class Person {
 	public void setWorked(List<Worked> worked) {
 		this.worked = worked;
 	}
+	
+	/**
+	 * Were that the person studied.
+	 **/
+
+	public List<Studied> getStudied() {
+		return studied;
+	}
+
+	public void seStudied(List<Studied> studied) {
+		this.studied = studied;
+	}
 
 	/**
 	 * What he knows of the person.
 	 **/
 
-	public List<Knowledge> getKnowledge() {
+	public List<Skill> getKnowledge() {
 		return knowledge;
 	}
 
-	public void setKnowledge(List<Knowledge> knowledge) {
+	public void setKnowledge(List<Skill> knowledge) {
 		this.knowledge = knowledge;
 	}
 
@@ -128,6 +164,7 @@ public class Person {
 		}
 		Person person = (Person) o;
 		return Objects.equals(userId, person.userId) && Objects.equals(userName, person.userName)
+				&& Objects.equals(givenName, person.givenName) && Objects.equals(familyName, person.familyName)
 				&& Objects.equals(userMail, person.userMail) && Objects.equals(userAddress, person.userAddress)
 				&& Objects.equals(hobbies, person.hobbies) && Objects.equals(worked, person.worked)
 				&& Objects.equals(knowledge, person.knowledge) && Objects.equals(jobesSearched, person.jobesSearched)
@@ -136,7 +173,7 @@ public class Person {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, userName, userMail, userAddress, hobbies, worked, knowledge, jobesSearched,
+		return Objects.hash(userId, userName, givenName, familyName, userMail, userAddress, hobbies, worked, knowledge, jobesSearched,
 				friends);
 	}
 
@@ -147,6 +184,8 @@ public class Person {
 
 		sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+		sb.append("    givenName: ").append(toIndentedString(givenName)).append("\n");
+		sb.append("    familyName: ").append(toIndentedString(familyName)).append("\n");
 		sb.append("    userMail: ").append(toIndentedString(userMail)).append("\n");
 		sb.append("    userAddress: ").append(toIndentedString(userAddress)).append("\n");
 		sb.append("    hobbies: ").append(toIndentedString(hobbies)).append("\n");

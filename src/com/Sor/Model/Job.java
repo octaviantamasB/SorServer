@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Job {
 	private String jobId = null;
 	private String jobName = null;
-	private String jobKnowledge = null;
+	private String jobCareerLevel = null;
 	private String jobSalary = null;
 
 	/**
@@ -36,12 +36,12 @@ public class Job {
 	 * 1 for beginner, 2 for advance, 3 for expert
 	 **/
 
-	public String getJobKnowledge() {
-		return jobKnowledge;
+	public String getJobCareerLevel() {
+		return jobCareerLevel;
 	}
 
-	public void setJobKnowledge(String jobKnowledge) {
-		this.jobKnowledge = jobKnowledge;
+	public void setJobCareerLevel(String jobCareerLevel) {
+		this.jobCareerLevel = jobCareerLevel;
 	}
 
 	/**
@@ -66,12 +66,12 @@ public class Job {
 		}
 		Job job = (Job) o;
 		return Objects.equals(jobId, job.jobId) && Objects.equals(jobName, job.jobName)
-				&& Objects.equals(jobKnowledge, job.jobKnowledge) && Objects.equals(jobSalary, job.jobSalary);
+				&& Objects.equals(jobCareerLevel, job.jobCareerLevel) && Objects.equals(jobSalary, job.jobSalary);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(jobId, jobName, jobKnowledge, jobSalary);
+		return Objects.hash(jobId, jobName, jobCareerLevel, jobSalary);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class Job {
 
 		sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
 		sb.append("    jobName: ").append(toIndentedString(jobName)).append("\n");
-		sb.append("    jobKnowledge: ").append(toIndentedString(jobKnowledge)).append("\n");
+		sb.append("    jobCareerLevel: ").append(toIndentedString(jobCareerLevel)).append("\n");
 		sb.append("    jobSalary: ").append(toIndentedString(jobSalary)).append("\n");
 		sb.append("}");
 		return sb.toString();

@@ -1,42 +1,28 @@
 package com.Sor.Model;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Objects;
 
-public class Worked {
-
-	private String workedId = null;
+public class Studied {
+	private String studiedId = null;
 	private String organizationId = null;
-	private Job job=new Job();
 	private Date beginDate = null;
 	private Date endDate = null;
-	
-	/**
-	 * Job of the person
-	 **/
 
-	public Job getJob() {
-		return job;
-	}
-
-	public void setJob(Job job) {
-		this.job = job;
-	}
-
-	
 	/**
 	 * Unique identifier.
 	 **/
 
-	public String getWorkedId() {
-		return workedId;
+	public String getStudiedId() {
+		return studiedId;
 	}
 
-	public void setWorkedId(String workedId) {
-		this.workedId = workedId;
+	public void setStudiedId(String studiedId) {
+		this.studiedId = studiedId;
 	}
 
 	/**
-	 * the id of the organization
+	 * the name of the Knowledge
 	 **/
 
 	public String getOrganizationId() {
@@ -79,25 +65,23 @@ public class Worked {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		Worked worked = (Worked) o;
-		return Objects.equals(workedId, worked.workedId) && Objects.equals(organizationId, worked.organizationId)
-				&& Objects.equals(worked, worked.job)
-				&& Objects.equals(beginDate, worked.beginDate) && Objects.equals(endDate, worked.endDate);
+		Studied studied = (Studied) o;
+		return Objects.equals(studiedId, studied.studiedId) && Objects.equals(organizationId, studied.organizationId)
+				&& Objects.equals(beginDate, studied.beginDate) && Objects.equals(endDate, studied.endDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(workedId, organizationId, job,  beginDate, endDate);
+		return Objects.hash(studiedId, organizationId, beginDate, endDate);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class Worked {\n");
+		sb.append("class Studied {\n");
 
-		sb.append("    workedId: ").append(toIndentedString(workedId)).append("\n");
+		sb.append("    studiedId: ").append(toIndentedString(studiedId)).append("\n");
 		sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
-		sb.append("    job: ").append(toIndentedString(job)).append("\n");
 		sb.append("    beginDate: ").append(toIndentedString(beginDate)).append("\n");
 		sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
 		sb.append("}");

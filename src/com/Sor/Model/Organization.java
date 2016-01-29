@@ -7,9 +7,22 @@ public class Organization {
 	private String userName = null;
 	private String userMail = null;
 	private String userAddress = null;
-	private List<Knowledge> knowledge = new ArrayList<Knowledge>();
+	private List<Skill> knowledge = new ArrayList<Skill>();
 	private List<Job> jobesSearched = new ArrayList<Job>();
 	private List<Person> employees = new ArrayList<Person>();
+	private String homepage=null;
+
+	/**
+	 * homepage identifier.
+	 **/
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
 
 	/**
 	 * Unique identifier.
@@ -63,11 +76,11 @@ public class Organization {
 	 * What the person should know, may be linked to a certain job.
 	 **/
 
-	public List<Knowledge> getKnowledge() {
+	public List<Skill> getKnowledge() {
 		return knowledge;
 	}
 
-	public void setKnowledge(List<Knowledge> knowledge) {
+	public void setKnowledge(List<Skill> knowledge) {
 		this.knowledge = knowledge;
 	}
 
@@ -107,6 +120,7 @@ public class Organization {
 		return Objects.equals(userId, organization.userId) && Objects.equals(userName, organization.userName)
 				&& Objects.equals(userMail, organization.userMail)
 				&& Objects.equals(userAddress, organization.userAddress)
+				&& Objects.equals(homepage, organization.homepage)
 				&& Objects.equals(knowledge, organization.knowledge)
 				&& Objects.equals(jobesSearched, organization.jobesSearched)
 				&& Objects.equals(employees, organization.employees);
@@ -114,7 +128,7 @@ public class Organization {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, userName, userMail, userAddress, knowledge, jobesSearched, employees);
+		return Objects.hash(userId, userName, userMail, userAddress, homepage, knowledge, jobesSearched, employees);
 	}
 
 	@Override
@@ -126,6 +140,7 @@ public class Organization {
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    userMail: ").append(toIndentedString(userMail)).append("\n");
 		sb.append("    userAddress: ").append(toIndentedString(userAddress)).append("\n");
+		sb.append("    homepage: ").append(toIndentedString(homepage)).append("\n");
 		sb.append("    knowledge: ").append(toIndentedString(knowledge)).append("\n");
 		sb.append("    jobesSearched: ").append(toIndentedString(jobesSearched)).append("\n");
 		sb.append("    employes: ").append(toIndentedString(employees)).append("\n");
