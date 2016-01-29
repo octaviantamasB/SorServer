@@ -10,6 +10,12 @@ ALTER TABLE `database1`.`registeredusers`
 ADD COLUMN `userpassword` VARCHAR(45) NOT NULL AFTER `userType`;  
 INSERT INTO `database1`.`registeredusers` (`userName`, `userMail`, `userType`,`userpassword`) VALUES ('test1', 'test1@yahoo.com', 'person','test');
 INSERT INTO `database1`.`registeredusers` (`userName`, `userMail`, `userType`,`userpassword`) VALUES ('test2', 'test2@yahoo.com', 'organization','test');
+ALTER TABLE `database1`.`registeredusers` 
+CHANGE COLUMN `userName` `userName` VARCHAR(400) NOT NULL ,
+ADD COLUMN `givenName` VARCHAR(200) NULL AFTER `userpassword`,
+ADD COLUMN `familyName` VARCHAR(200) NULL AFTER `givenName`;
+UPDATE `database1`.`registeredusers` SET `givenName`='t1', `familyName`='f1' WHERE `userId`='1';
+UPDATE `database1`.`registeredusers` SET `givenName`='t2', `familyName`='f2' WHERE `userId`='2';
 
 
   CREATE TABLE `database1`.`messages` (

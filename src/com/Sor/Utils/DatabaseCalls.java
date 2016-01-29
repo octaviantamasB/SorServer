@@ -130,12 +130,12 @@ public class DatabaseCalls {
 			Logger.getLogger(DatabaseConector.class.getName()).log(Level.SEVERE, null, e);
 			e.printStackTrace();
 		}
-		return null;
-	}
+		return null;}
+	
 
-	public RegisterResponse registerUser(String userName, String userMail, String userPassword, String userType) {
-		String STM = "INSERT INTO  registeredusers (userName,userMail ,userpassword,userType) VALUES ('" + userName + "','" + userMail + "','"
-				+ userPassword + "','"	+ userType +"')";
+	public RegisterResponse registerUser(String userName, String givenName, String familyName, String userMail, String userPassword, String userType) {
+		String STM = "INSERT INTO  registeredusers (userName,givenName,familyName,userMail ,  userpassword,userType) VALUES ('" + userName + "','" 
+	+ givenName+ "','" + familyName+ "','" + userMail + "','"+ userPassword + "','"	+ userType +"')";
 		try {
 			String result = db.insert(STM,"userId");
 			if (result!=null)

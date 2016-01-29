@@ -28,14 +28,15 @@ public class UserController {
 	@POST
 	@Path("/register")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RegisterResponse postUserRegister(@QueryParam("userName") String userName,
+	public RegisterResponse postUserRegister(@QueryParam("userName") String userName,@QueryParam("givenName") String givenName,
+			@QueryParam("familyName") String familyName,
 			@QueryParam("userMail") String userMail, @QueryParam("userPassword") String userPassword,
 			@QueryParam("userType") String userType, @Context SecurityContext securityContext)
 					throws NotFoundException {
 		// return
 		// delegate.userRegisterPost(userName,userMail,userPassword,userType,securityContext);
 		RegisterResponse response = new RegisterResponse();
-		response=dc.registerUser(userName,userMail,userPassword,userType);	
+		response=dc.registerUser(userName,givenName,familyName,userMail,userPassword,userType);	
 		return response;
 	}
 
