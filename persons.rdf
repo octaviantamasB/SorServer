@@ -351,4 +351,8 @@ rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</cv:hasDriversLice
 </foaf:Person>
 
 
+<<<<<<< HEAD
 </rdf:RDF>
+=======
+</rdf:RDF>
+>>>>>>> origin/master
